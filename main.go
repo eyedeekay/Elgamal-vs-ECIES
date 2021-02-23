@@ -18,20 +18,18 @@ func main() {
 	cresult := 0
 	lines := strings.Split(string(bytes), "\n")
 
-	for i, l := range lines {
+	for _, l := range lines {
 		count := strings.Split(l, ":")
 		if len(count) == 2 {
-			newcount := strings.Replace(count[1], "n", "", -1)
-			newnewcount := strings.Replace(newcount, " ", "", -1)
-			log.Printf("Line %d: %s, %s", i, l, newnewcount)
-			counter, err := strconv.Atoi(newnewcount)
-			if err != nil {
+			newcount := strings.Trim(count[1], " n\t\n")
+			counter, err := strconv.Atoi(string(newcount))
+			if err == nil {
 				cresult = cresult + counter
-				log.Printf("Total seconds %d %d", cresult, counter)
+
 			} else {
 				log.Println(err.Error())
 			}
 		}
 	}
-
+	log.Printf("Total Nanoseconds %d", cresult)
 }
